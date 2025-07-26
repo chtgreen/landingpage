@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>cht.green</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      body {
+        font-family: "Space Grotesk", sans-serif;
+        background-color: #000000;
+        color: #f3f4f6;
+      }
+      .hero-animation {
+        opacity: 0;
+        animation: fadeIn 3s ease-in-out forwards;
+      }
+      .hidden-content {
+        display: none;
+      }
+      .logo-top {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 50;
+      }
+      .logo-flying {
+        position: fixed;
+        top: 1rem;
+        left: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        transform: scale(0.4) rotate(5deg);
+        transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 51;
+      }
+      .logo-navbar {
+        width: 3rem;
+        height: 3rem;
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(243, 244, 246, 0.1);
+        z-index: 40;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.8s ease-in-out;
+      }
+      .navbar.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .navbar-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 1rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 1rem;
+      }
+      .navbar-text-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .final-message {
+        font-size: 0.75rem; /* text-xs */
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 2s ease-in-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .animated-words-container {
+        display: inline-block;
+        vertical-align: bottom;
+      }
+      .typewriter-text {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 0.15em solid #f3f4f6;
+        animation-name: typing, blink-caret;
+        animation-duration: 3s, 0.75s;
+        animation-timing-function: steps(30, end), step-end;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        max-width: 100%;
+      }
+      #animated-word-1 {
+        animation-delay: 0s;
+      }
+      #animated-word-2 {
+        animation-delay: 4s;
+      }
+      #animated-word-3 {
+        animation-delay: 8s;
+      }
+      #animated-word-4 {
+        animation-delay: 12s;
+      }
+      @keyframes typing {
+        0%,
+        100% {
+          width: 0;
+        }
+        50%,
+        90% {
+          width: 100%;
+        }
+      }
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #f3f4f6;
+        }
+      }
+      .section-separator {
+        border-top: 1px dotted rgba(243, 244, 246, 0.2);
+      }
+      .product-card-hover {
+        transition:
+          box-shadow 0.3s ease-in-out,
+          transform 0.3s ease-in-out;
+      }
+      .product-card-hover:hover {
+        box-shadow: 0 0 25px rgba(243, 244, 246, 0.1);
+        transform: translateY(-5px);
+      }
+      .main-content {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 1s ease-in-out;
+      }
+      .main-content.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="bg-black text-gray-100 lowercase">
+    <!-- Fixed Navbar -->
+    <nav class="navbar container" id="navbar">
+      <div class="navbar-content">
+        <div class="flex items-center">
+          <img
+            src="logo.png"
+            alt="cht.green logo"
+            class="logo-navbar"
+            id="navbar-logo"
+          />
+          <div class="navbar-text-container">
+            <div
+              class="navbar-animation ml-2 text-white p-2 font-bold"
+              id="navbar-animation"
+            >
+              we [ are cht.green 💚 ]
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header
+      class="h-screen flex flex-col items-center justify-center text-center px-4"
+      id="hero-section"
+    >
+      <div class="hero-animation">
+        <img
+          src="logo.png"
+          alt="cht.green logo"
+          class="w-32 md:w-48 mb-4"
+          id="hero-logo"
+        />
+      </div>
+      <div class="text-2xl md:text-4xl font-bold">
+        <span>we </span>
+        <span
+          class="typewriter-text inline"
+          style="display: inline"
+          id="typewriter"
+        ></span>
+      </div>
+    </header>
+    <main class="px-6 md:px-12 lg:px-24 main-content" id="main-content">
+      <section class="py-24 md:py-32 text-center max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          who we are
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300">
+          CHT.green is a cannabis tech studio. We build digital products and
+          custom software for the cannabis industry. We're currently developing
+          <strong>MyBud</strong> — a smart companion for growers — but we also
+          offer development services, consulting, and integrations.
+        </p>
+      </section>
+
+      <section
+        class="py-24 md:py-32 section-separator text-center max-w-4xl mx-auto"
+      >
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          what we solve
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300">
+          Tired of juggling spreadsheets, sensors, and scattered data? We help
+          growers and associations get organized, connected, and scalable — with
+          software that actually fits their needs.
+        </p>
+      </section>
+
+      <section
+        class="py-24 md:py-32 section-separator text-center max-w-4xl mx-auto"
+      >
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          how we help
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300">
+          From mobile apps to custom APIs and automations, we build tools that
+          talk to your devices and work in your context. Fast prototypes, clean
+          code, and long-term thinking.
+        </p>
+      </section>
+
+      <section
+        class="py-24 md:py-32 section-separator text-center max-w-4xl mx-auto"
+      >
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          what we’re building
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300 mb-8">
+          Our in-house product, <strong>MyBud</strong>, is a smart grower’s
+          companion. It helps you document your grow visually, organize your
+          tasks, and track everything from germination to curing.
+        </p>
+        <a
+          href="https://mybub.app"
+          class="inline-block bg-white text-black py-2 px-6 rounded-md hover:bg-gray-200 transition-colors font-bold"
+          target="_blank"
+          rel="noopener noreferrer"
+          >visit mybud (beta)</a
+        >
+      </section>
+
+      <section
+        class="py-24 md:py-32 section-separator text-center max-w-4xl mx-auto"
+      >
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          want to work with us?
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300 mb-8">
+          Whether you’re an association looking for solutions or a grower who
+          wants to automate — we’re here. Tell us your problem and we’ll help
+          build the answer.
+        </p>
+        <a
+          class="inline-block bg-white text-black py-2 px-6 rounded-md hover:bg-gray-200 transition-colors font-bold"
+          href="mailto:contact@cht.green"
+          >contact@cht.green</a
+        >
+        <a
+          class="inline-block text-white py-2 px-6 rounded-md transition-colors font-bold"
+          href="#"
+          >whatsapp</a
+        >
+      </section>
+    </main>
+    <footer
+      class="text-center py-8 section-separator main-content"
+      id="footer-content"
+    >
+      <p class="text-gray-400">© 2025 cht.green. all rights reserved.</p>
+      <p class="text-gray-500 mt-2 text-sm">we grow more than tech. 🇧🇷</p>
+    </footer>
+    <script>
+      const words = ["grow...", "care...", "know...", "are cht.green 💚"];
+      let currentWordIndex = 0;
+      const typewriterElement = document.getElementById("typewriter");
+      const heroLogo = document.getElementById("hero-logo");
+      const navbar = document.getElementById("navbar");
+      const navbarAnimation = document.getElementById("navbar-animation");
+      const mainContent = document.getElementById("main-content");
+      const footerContent = document.getElementById("footer-content");
+      const heroSection = document.getElementById("hero-section");
+
+      let isTyping = false;
+      let isErasing = false;
+
+      function typeWord() {
+        if (isTyping || isErasing) return;
+
+        const word = words[currentWordIndex];
+        let charIndex = 0;
+        isTyping = true;
+        typewriterElement.textContent = "";
+
+        const typeInterval = setInterval(() => {
+          if (charIndex < word.length) {
+            typewriterElement.textContent += word[charIndex];
+            charIndex++;
+          } else {
+            clearInterval(typeInterval);
+            isTyping = false;
+
+            // Check if this is the final message
+            if (currentWordIndex === words.length - 1) {
+              // Final message - don't erase, start logo animation
+              setTimeout(() => {
+                animateLogoToNavbar();
+              }, 2000);
+            } else {
+              // Wait before erasing
+              setTimeout(() => {
+                eraseWord();
+              }, 2000);
+            }
+          }
+        }, 150);
+      }
+
+      function eraseWord() {
+        if (isTyping || isErasing) return;
+
+        isErasing = true;
+        const currentText = typewriterElement.textContent;
+        let charIndex = currentText.length;
+
+        const eraseInterval = setInterval(() => {
+          if (charIndex > 0) {
+            typewriterElement.textContent = currentText.substring(
+              0,
+              charIndex - 1,
+            );
+            charIndex--;
+          } else {
+            clearInterval(eraseInterval);
+            isErasing = false;
+
+            // Move to next word
+            currentWordIndex++;
+            setTimeout(() => {
+              typeWord();
+            }, 500);
+          }
+        }, 100);
+      }
+
+      function animateLogoToNavbar() {
+
+        // Simply show navbar and hide hero
+        navbar.classList.add("visible");
+        heroSection.style.display = "none";
+
+        // Show main content
+        setTimeout(() => {
+          mainContent.classList.add("visible");
+          footerContent.classList.add("visible");
+        }, 300);
+
+        // Start continuous navbar animation
+        startNavbarAnimation();
+      }
+
+      function startNavbarAnimation() {
+        let navbarWordIndex = 0;
+
+        function updateNavbarText() {
+          navbarAnimation.textContent = `we ${words[navbarWordIndex]}`;
+          navbarWordIndex = (navbarWordIndex + 1) % words.length;
+        }
+
+        // Update immediately
+        updateNavbarText();
+
+        // Update every 4 seconds
+        setInterval(() => {
+          updateNavbarText();
+          if (navbarWordIndex === 0) {
+            // Reset to start the loop again
+            navbarWordIndex = 0;
+          }
+        }, 4000);
+      }
+      // Check if animation should be played
+      const urlParams = new URLSearchParams(window.location.search);
+      const shouldAnimate =
+        urlParams.has("animated") || !localStorage.getItem("animationPlayed");
+
+      if (shouldAnimate) {
+
+        // Start the initial animation
+        typeWord();
+
+        // Set flag in local storage
+        localStorage.setItem("animationPlayed", "true");
+      } else {
+        // Directly show the final message
+        typewriterElement.textContent = "we are cht.green 💚";
+        animateLogoToNavbar();
+      }
+    </script>
+  </body>
+</html>
